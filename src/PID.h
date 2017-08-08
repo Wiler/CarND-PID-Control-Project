@@ -30,12 +30,12 @@ class PID {
     /*
     * Initialize PID.
     */
-    void Init(double Kp, double Ki, double Kd);
+    void Init(double Kp_init, double Ki_init, double Kd_init);
 
     /*
     * Update the PID error variables given cross track error.
     */
-    double UpdateError(double cte);
+    void UpdateError(double cte);
 
     /*
     * Calculate the total PID error.
@@ -44,6 +44,10 @@ class PID {
 
    private:
     double prev_error;
+
+    double error;
+
+    double iterations;
 };
 
 #endif /* PID_H */

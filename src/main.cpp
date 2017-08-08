@@ -32,8 +32,7 @@ int main() {
 
     PID pid;
 
-    // pid.Init(1, 4, 0.001);
-    std::cout << "despues de inicio" << std::endl;
+    pid.Init(0.195, 0.00389, 3.2);
 
     h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data,
                        size_t length, uWS::OpCode opCode) {
@@ -41,7 +40,6 @@ int main() {
         // event.
         // The 4 signifies a websocket message
         // The 2 signifies a websocket event
-        std::cout << "Antes de update" << std::endl;
         if (length && length > 2 && data[0] == '4' && data[1] == '2') {
             auto s = hasData(std::string(data).substr(0, length));
             if (s != "") {
@@ -55,7 +53,8 @@ int main() {
                         std::stod(j[1]["steering_angle"].get<std::string>());
                     double steer_value = 0;
 
-                    // steer_value = pid.UpdateError(cte);
+                    pid.UpdateError(cte);
+                    steer_value =  pid.TotalError();
                     /*
                     * TODO: Calcuate steering value here, remember the steering
                     * value is

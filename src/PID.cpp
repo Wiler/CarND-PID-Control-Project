@@ -19,15 +19,20 @@ void PID::Init(double Kp_init, double Ki_init, double Kd_init) {
     i_error = 0;
     d_error = 0;
     prev_error = 0;
+    error = 0;
 }
 
-double PID::UpdateError(double cte) {
+void PID::UpdateError(double cte) {
     p_error = cte;
     i_error += cte;
     d_error = cte - prev_error;
     prev_error = cte;
 
-    return (-Kp * p_error - Kd * d_error - Ki * i_error);
+    error = -Kp * p_error - Kd * d_error - Ki * i_error;
+
 }
 
-double PID::TotalError() {}
+double PID::TotalError() {
+
+    return error;
+}
