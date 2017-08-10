@@ -3,6 +3,22 @@ Self-Driving Car Engineer Nanodegree Program
 
 ---
 
+## Effect of P, D and I
+
+P: This component set the control variable to a proportional scale. It is possible to observe, from the video final_track.ogv, that the car changes its steering angle in a direct proportion to how the error changes. For example, at the beginning of the video the error is very small, therefore the change in the steering angle is small as well.
+
+I: The representation of past errors is contained in this component. This mean that the historical changes in error are taken in count to correct the steering angle. In certain part of the track, the effect of this component is very notable. One example is on curves, where the error increases in a sort amount of time, so in the following moments this component will increase rapidly, forcing the car to turn and follow the correct path.
+
+D: Derivate information is important to avoid overshooting and oscillations. The derivate is obtained by subtraction the previous error to the actual error. In the video it can be appreciated that the presence of oscillations is limited.
+
+## PID Tunning
+
+In order to find the constant parameter of p_error, i_error and d_error a manual tuning approach was applied. Each parameter was tuned digit by digit, starting from units digit until three digits after the decimal point. The effect of each parameter was observed in the following scenarios:
+
+P: Based on straight parts of the track.
+I: Based on the curves of the track.
+D: Based on the presence of oscillations during all the track.
+
 ## Dependencies
 
 * cmake >= 3.5
@@ -19,7 +35,7 @@ Self-Driving Car Engineer Nanodegree Program
   * Run either `./install-mac.sh` or `./install-ubuntu.sh`.
   * If you install from source, checkout to commit `e94b6e1`, i.e.
     ```
-    git clone https://github.com/uWebSockets/uWebSockets 
+    git clone https://github.com/uWebSockets/uWebSockets
     cd uWebSockets
     git checkout e94b6e1
     ```
@@ -33,7 +49,7 @@ There's an experimental patch for windows in this [PR](https://github.com/udacit
 1. Clone this repo.
 2. Make a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. Run it: `./pid`. 
+4. Run it: `./pid`.
 
 ## Editor Settings
 
